@@ -1,5 +1,9 @@
 package com.flowtech.eventhub_spring_boot_backend.dto;
 
-public class UserLoginRequestDTO {
+import lombok.Data;
 
+@Data
+public class UserLoginRequestDTO {
+	private String email;
+	private String password;
 }
