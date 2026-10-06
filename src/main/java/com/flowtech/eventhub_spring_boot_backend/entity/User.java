@@ -2,6 +2,7 @@ package com.flowtech.eventhub_spring_boot_backend.entity;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,8 +24,10 @@ public class User {
 	@SequenceGenerator(sequenceName = "user",name = "user_seq",initialValue = 5001)
 	private Integer id;
 	private String name;
+	@Column(unique = true)
 	private String email;
 	private String password;
+	@Column(unique = true)
 	private Long phone;
 	
 	private LocalDate createdAt;

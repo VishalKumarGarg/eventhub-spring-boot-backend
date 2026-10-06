@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,7 @@ public class AuthController {
 	private final UserService userService;
 	private final AuthenticationManager authenticationManager;
 	private final EventJwtCodeGenerator codeGenerator;
+	private final PasswordEncoder passwordEncoder;
 	
 	@PostMapping(value="/register")
 	public ResponseEntity<?> registerUser(@RequestBody UserRegisterRequestDTO  requestDTO){
@@ -36,8 +38,11 @@ public class AuthController {
 	@PostMapping("/login")
 	public ResponseEntity<?> loginController(@RequestBody UserLoginRequestDTO dto, HttpServletRequest request, HttpServletResponse response){
 		User user=userService.findUserByEmail(dto.getEmail());
-		if(user.getPassword()==null || !user.getPassword().equals(dto.getPassword()))
+//		if(user.getPassword()==null || !user.getPassword().equals(dto.getPassword()))
+//			return ResponseEntity.badRequest().body("Invalid credentials");
+		if(user.getPassword()==null || passwordEncoder.matches(dto.getPassword(), user.getPassword())==false) {
 			return ResponseEntity.badRequest().body("Invalid credentials");
+		}
 		
 		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword());
 		

@@ -27,7 +27,7 @@ public class EventJwtCodeGenerator {
 		JwtClaimsSet claims=JwtClaimsSet.builder().issuer("event-hub").subject(authentication.getName()) //Or
 				// authentication.getName()
 				.issuedAt(instantNow).expiresAt(instantNow.plus(1, ChronoUnit.HOURS))//Set the expiration time to 1
-				.claim("scopes", roles).build();
+				.claim("scope", roles).build();
 		return jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
 	}
 }
