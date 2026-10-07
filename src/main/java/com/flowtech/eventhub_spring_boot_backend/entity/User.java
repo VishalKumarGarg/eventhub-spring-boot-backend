@@ -2,6 +2,8 @@ package com.flowtech.eventhub_spring_boot_backend.entity;
 
 import java.time.LocalDate;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,6 +32,7 @@ public class User {
 	@Column(unique = true)
 	private Long phone;
 	
+	@CreationTimestamp
 	private LocalDate createdAt;
 	
 	@ManyToOne

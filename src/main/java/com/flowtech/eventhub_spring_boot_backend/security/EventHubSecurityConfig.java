@@ -87,7 +87,7 @@ public class EventHubSecurityConfig {
 	@Bean
 	public JwtAuthenticationConverter jwtAuthenticationConverter() {
 		JwtGrantedAuthoritiesConverter grantedAuthoritiesConverter=new JwtGrantedAuthoritiesConverter();
-		grantedAuthoritiesConverter.setAuthoritiesClaimName("scope");
+		grantedAuthoritiesConverter.setAuthoritiesClaimName("roles");
 		grantedAuthoritiesConverter.setAuthorityPrefix("");
 		JwtAuthenticationConverter jwtAuthenticationConverter=new JwtAuthenticationConverter();
 		jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(grantedAuthoritiesConverter);
